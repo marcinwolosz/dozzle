@@ -38,15 +38,17 @@ export const useContainerStore = defineStore("container", () => {
     es = new EventSource(withBase("/api/events/stream"));
     es.addEventListener("error", (e) => {
       if (es?.readyState === EventSource.CLOSED) {
-        showToast(
-          {
-            id: "events-stream",
-            message: t("error.events-stream.message"),
-            title: t("error.events-stream.title"),
-            type: "error",
-          },
-          { once: true },
-        );
+        setTimeout(() => {
+          showToast(
+            {
+              id: "events-stream",
+              message: t("error.events-stream.message"),
+              title: t("error.events-stream.title"),
+              type: "error",
+            },
+            { once: true },
+          );
+        }, 5000); // 5sec delay
       }
     });
 
